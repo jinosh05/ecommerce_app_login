@@ -55,6 +55,9 @@ class S {
 
   static const String next = "Next";
 
+  static const String allowPermission =
+      '\nAllow File Permissions for Using Feature';
+
   // static const String a = "";
 
   // static const String a = "";

@@ -3,9 +3,11 @@ import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
+import 'package:ecommerce_app_login/utils/tools.dart';
 import 'package:ecommerce_app_login/widgets/appimage.dart';
 import 'package:ecommerce_app_login/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ImageSelctionUI extends StatefulWidget {
   const ImageSelctionUI({super.key});
@@ -15,6 +17,7 @@ class ImageSelctionUI extends StatefulWidget {
 }
 
 class _ImageSelctionUIState extends State<ImageSelctionUI> {
+  Uint8List? image;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +33,27 @@ class _ImageSelctionUIState extends State<ImageSelctionUI> {
               style: AppText.b2!.cl(AppColors.grey500).notoSans().w(4),
             ),
           ),
-          AppImage(imageUrl: Assets.editAvatar, size: AppDimensions.width(35)),
+          GestureDetector(
+            onTap: () async {
+              try {
+                image = await Tools().pickImage();
+                setState(() {});
+              } on Exception catch (e) {
+                debugPrint("Exceptio $e");
+              }
+            },
+            child:
+                image == null
+                    ? AppImage(
+                      imageUrl: Assets.editAvatar,
+                      size: AppDimensions.width(35),
+                    )
+                    : Image.memory(
+                      image!,
+                      width: AppDimensions.width(50),
+                      height: AppDimensions.width(50),
+                    ),
+          ),
           Spacer(),
           PrimaryButton.withChild(
             onPressed: () {},
