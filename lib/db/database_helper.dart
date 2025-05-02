@@ -33,15 +33,16 @@ class DBHelper {
         ''');
 
         await db.execute('''
-          CREATE TABLE $_profileTable (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT NOT NULL UNIQUE,
-            first_name TEXT,
-            last_name TEXT,
-            phone TEXT,
-            address TEXT
-          )
-        ''');
+  CREATE TABLE $_profileTable (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email TEXT NOT NULL UNIQUE,
+    first_name TEXT,
+    last_name TEXT,
+    phone TEXT,
+    address TEXT,
+    image BLOB
+  )
+''');
       },
     );
   }

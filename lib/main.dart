@@ -2,6 +2,7 @@ import 'package:ecommerce_app_login/configs/app.dart';
 import 'package:ecommerce_app_login/configs/apptheme.dart';
 import 'package:ecommerce_app_login/domain/cubit/theme/theme_cubit.dart';
 import 'package:ecommerce_app_login/ui/login/login_screen.dart';
+import 'package:ecommerce_app_login/ui/signup/image_selction_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,7 +49,14 @@ class _MainAppState extends State<MainApp> {
         App.init(context);
         return child!;
       },
-      home: const LoginScreen(),
+      home: Builder(
+        builder: (context) {
+          return ImageSelctionUI();
+
+          // ignore: dead_code
+          return const LoginScreen();
+        },
+      ),
     );
   }
 }

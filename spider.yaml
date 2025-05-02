@@ -32,7 +32,7 @@ package: constants
 groups:
   - paths:
       - assets/
-      # - assets/icons/
+      - assets/icons/
       # - assets/icons/plans/
       # - assets/images/
       # - assets/lottie/

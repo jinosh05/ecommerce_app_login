@@ -50,9 +50,10 @@ class S {
 
   static const String confirmPassword = "Confirm Password";
 
-  // static const String a = "";
+  static const String uploadImgMsg =
+      "You are logged in for the first time and can upload a profile photo";
 
-  // static const String a = "";
+  static const String next = "Next";
 
   // static const String a = "";
 
