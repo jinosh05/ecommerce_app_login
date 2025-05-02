@@ -1,4 +1,3 @@
-import 'package:ecommerce_app_login/configs/app_dimensions.dart';
 import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
@@ -55,32 +54,16 @@ class PrimaryButton extends StatelessWidget {
       margin: margin,
       alignment: alignment,
       clipBehavior: Clip.antiAlias,
-
       decoration: BoxDecoration(
-        borderRadius: AppDimensions.borRadius(4),
         border: border,
-        color: color ?? AppColors.pastelGreen,
-        boxShadow: [
-          BoxShadow(
-            color: color ?? const Color(0xFFA9FFD1), // #A9FFD1
-            blurStyle: BlurStyle.inner,
-            offset: const Offset(1, 1),
-            blurRadius: 0.8,
-          ),
-          const BoxShadow(
-            color: Color(0x40000000), // #00000040
-            offset: Offset(-1, -1),
-            blurRadius: 1.5,
-            blurStyle: BlurStyle.inner,
-          ),
-        ],
+        color: color ?? AppColors.primary,
       ),
-      padding: padding ?? Space.all(2.5, 0.5),
+      padding: padding ?? Space.vf(0.75),
       child:
           child ??
           Text(
             text,
-            style: textStyle ?? AppText.b2!.w(6).cl(AppColors.grayishBlue),
+            style: textStyle ?? AppText.b2!.cl(Colors.white).w(6).notoSans(),
           ),
     ),
   );

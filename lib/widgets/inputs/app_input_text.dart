@@ -1,4 +1,3 @@
-import 'package:ecommerce_app_login/configs/app_dimensions.dart';
 import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
@@ -19,14 +18,13 @@ class AppInputText extends StatelessWidget with AppInputMixin {
     this.isOptional = false,
     this.helper,
     this.validator,
-    this.maxLines,
+
     this.style,
     this.color,
     this.prefixIcon,
     this.contentPadding,
     this.maxLength,
     this.capitaliseText = false,
-    this.isMobileNumber,
     this.onChanged,
   });
   final Widget? suffixIcon;
@@ -39,13 +37,12 @@ class AppInputText extends StatelessWidget with AppInputMixin {
   final bool enabled;
   final bool visible;
   final String? Function(String? text)? validator;
-  final int? maxLines;
+
   final Color? color;
   final TextStyle? style;
   final EdgeInsets? contentPadding;
   final int? maxLength;
   final bool isOptional;
-  final bool? isMobileNumber;
   final ValueChanged<String>? onChanged;
 
   /// [capitaliseText] allows us to convert all the texts into UpperCase
@@ -53,10 +50,6 @@ class AppInputText extends StatelessWidget with AppInputMixin {
 
   @override
   Widget build(final BuildContext context) {
-    final outlineInputBorder = OutlineInputBorder(
-      borderRadius: AppDimensions.borRadius(3),
-      borderSide: const BorderSide(color: AppColors.paleBlueGray),
-    );
     return TextFormField(
       controller: ctrl,
       keyboardType: getKeyboard(type),
@@ -85,38 +78,26 @@ class AppInputText extends StatelessWidget with AppInputMixin {
               ? TextCapitalization.characters
               : TextCapitalization.none,
       obscureText: !visible,
-      maxLines: maxLines,
-
-      style: style ?? AppText.b2!.pop().cl(AppColors.grayishBlue).w(5),
+      style: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
       maxLength: maxLength,
       decoration: InputDecoration(
-        fillColor: color ?? AppColors.almostWhite,
+        fillColor: color ?? AppColors.primary.adjustOpacity(0.08),
         filled: true,
-
-        counterStyle: AppText.l1!
-            .cl(AppColors.grayishBlue.adjustOpacity(0.25))
-            .w(5),
+        counterStyle: AppText.l1!.w(5),
         isDense: true,
-        prefix:
-            (isMobileNumber ?? false)
-                ? Text('+91 ', style: AppText.b3!.cl(Colors.grey))
-                : null,
-
         alignLabelWithHint: true,
         hintText: hint,
-        labelStyle: AppText.b2!.w(3).cl(AppColors.steelGray),
-        labelText: hint,
-        hintStyle: style ?? AppText.b2!.cl(AppColors.grayishBlue).pop(),
+        hintStyle: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
         contentPadding: contentPadding ?? Space.all(1, 0.75),
-        border: outlineInputBorder,
-        focusedBorder: outlineInputBorder,
-        enabledBorder: outlineInputBorder,
-        disabledBorder: outlineInputBorder,
+        border: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        enabledBorder: InputBorder.none,
+        disabledBorder: InputBorder.none,
         suffixIcon: suffixIcon,
         helperText: helper,
         prefixIcon: prefixIcon,
-        helperStyle: style ?? AppText.b3!.w(3).cl(AppColors.grayishBlue),
-        errorStyle: AppText.l1!.pop().w(7).cl(AppColors.grayishBlue),
+        helperStyle: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
+        errorStyle: AppText.l1!.pop().w(7),
       ),
     );
   }

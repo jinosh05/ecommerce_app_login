@@ -34,7 +34,7 @@ class AppText {
   static void init() {
     const b = FontWeight.bold;
 
-    final baseStyle = GoogleFonts.getFont('Poppins');
+    final baseStyle = GoogleFonts.getFont('Inter');
 
     h1 = baseStyle.copyWith(fontSize: AppDimensions.font(22));
     h1b = h1!.copyWith(fontWeight: b);
@@ -113,5 +113,5 @@ extension CustomTextStyles on TextStyle {
 
   TextStyle montserrat() => copyWith(fontFamily: 'Montserrat');
 
-  TextStyle nunito() => copyWith(fontFamily: 'Nunito');
+  TextStyle notoSans() => copyWith(fontFamily: 'Noto Sans');
 }

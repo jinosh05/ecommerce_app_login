@@ -32,6 +32,24 @@ class S {
   static const String noInternetMsg =
       "“Please Turn ON your Internet and Let's Network without Interruption”";
 
+  static const String welcome = "Welcome";
+
+  static const String welcomeMsg = "Welcome to your Portal";
+
+  static const String email = "Email";
+
+  static const String dummyEmail = "your.email@gmail.com";
+
+  static const String password = "Password";
+
+  static const String restorePassword = "Restore password";
+
+  static const String login = "Login";
+
+  static const String signUp = "Sign Up";
+
+  static const String confirmPassword = "Confirm Password";
+
   // static const String a = "";
 
   // static const String a = "";

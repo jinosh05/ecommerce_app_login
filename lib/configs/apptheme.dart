@@ -19,11 +19,7 @@ class AppTheme {
       backgroundColor: Colors.white,
       surfaceTintColor: Colors.white,
     ),
-    cardColor: AppColors.almostWhite,
-    cardTheme: const CardTheme(
-      color: AppColors.almostWhite,
-      surfaceTintColor: AppColors.almostWhite,
-    ),
+
     inputDecorationTheme: const InputDecorationTheme(
       border: InputBorder.none,
       focusedBorder: InputBorder.none,
