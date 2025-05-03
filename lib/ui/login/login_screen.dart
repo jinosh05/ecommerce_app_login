@@ -3,7 +3,7 @@ import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
-import 'package:ecommerce_app_login/db/database_helper.dart';
+import 'package:ecommerce_app_login/domain/db/database_helper.dart';
 import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
 import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart'
     show RegisterCubit;

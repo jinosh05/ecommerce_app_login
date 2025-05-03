@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
-import 'package:ecommerce_app_login/db/database_helper.dart';
+import 'package:ecommerce_app_login/domain/db/database_helper.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

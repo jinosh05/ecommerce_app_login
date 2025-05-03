@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:ecommerce_app_login/models/user_model.dart';
-import 'package:ecommerce_app_login/models/user_profile.dart';
+import 'package:ecommerce_app_login/domain/models/user_model.dart';
+import 'package:ecommerce_app_login/domain/models/user_profile.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
