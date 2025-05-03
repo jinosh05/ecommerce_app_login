@@ -4,6 +4,7 @@ import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
 import 'package:ecommerce_app_login/domain/db/database_helper.dart';
+import 'package:ecommerce_app_login/services/auth_services.dart';
 import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
 import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart'
     show RegisterCubit;
@@ -230,7 +231,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> onLogin() async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
-    final confirmPassword = confirmPasswordController.text.trim();
     if (formkey.currentState!.validate()) {
       // Check if email exists
       final existingUser = await DBHelper.getUserByEmail(email);
@@ -242,18 +242,13 @@ class _LoginScreenState extends State<LoginScreen> {
         return;
       }
 
-      if (password != confirmPassword) {
-        Tools.showSnack('Passwords do not match');
-
-        return;
-      }
-
       final user = await DBHelper.login(email, password);
 
       if (user != null) {
         final profile = await DBHelper.getProfile(email);
 
         if (profile != null) {
+          await AuthService().setLoggedIn();
           AppRoutes.makeFirst(context, HomeScreen());
         } else {
           context.read<RegisterCubit>().setCredentials(

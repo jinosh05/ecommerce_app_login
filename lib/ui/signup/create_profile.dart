@@ -2,6 +2,7 @@ import 'package:ecommerce_app_login/configs/app_dimensions.dart';
 import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
+import 'package:ecommerce_app_login/services/auth_services.dart';
 import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
 import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart';
 import 'package:ecommerce_app_login/utils/routes.dart';
@@ -46,6 +47,7 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text('Registration Successful')));
+          AuthService().setLoggedIn();
           AppRoutes.makeFirst(context, HomeScreen());
         } else if (state is RegisterFailure) {
           ScaffoldMessenger.of(

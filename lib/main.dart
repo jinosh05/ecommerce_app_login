@@ -1,11 +1,10 @@
 import 'package:ecommerce_app_login/configs/app.dart';
 import 'package:ecommerce_app_login/configs/apptheme.dart';
 import 'package:ecommerce_app_login/domain/cubit/theme/theme_cubit.dart';
+import 'package:ecommerce_app_login/services/auth_services.dart';
+import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
 import 'package:ecommerce_app_login/ui/login/login_screen.dart';
-import 'package:ecommerce_app_login/ui/signup/create_profile.dart'
-    show CreateProfileUI;
 import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart';
-import 'package:ecommerce_app_login/ui/signup/image_selction_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -55,14 +54,22 @@ class _MainAppState extends State<MainApp> {
         App.init(context);
         return child!;
       },
-      home: Builder(
-        builder: (context) {
-          return LoginScreen();
+      home: FutureBuilder(
+        future: Future(() async {
+          return await AuthService().isLoggedIn();
+        }),
 
-          // ignore: dead_code
-          return CreateProfileUI();
-          return const LoginScreen();
-          return ImageSelctionUI();
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasData) {
+              if (snapshot.data) {
+                return HomeScreen();
+              } else {
+                return LoginScreen();
+              }
+            }
+          }
+          return Scaffold(body: Center(child: FlutterLogo()));
         },
       ),
     );
