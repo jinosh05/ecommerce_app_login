@@ -3,11 +3,16 @@ import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
+import 'package:ecommerce_app_login/ui/signup/create_profile.dart';
+import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart'
+    show RegisterCubit;
+import 'package:ecommerce_app_login/utils/routes.dart';
 import 'package:ecommerce_app_login/utils/tools.dart';
 import 'package:ecommerce_app_login/widgets/appimage.dart';
 import 'package:ecommerce_app_login/widgets/buttons/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ImageSelctionUI extends StatefulWidget {
   const ImageSelctionUI({super.key});
@@ -56,7 +61,10 @@ class _ImageSelctionUIState extends State<ImageSelctionUI> {
           ),
           Spacer(),
           PrimaryButton.withChild(
-            onPressed: () {},
+            onPressed: () async {
+              context.read<RegisterCubit>().setImage(image: image);
+              await AppRoutes.push(context, CreateProfileUI());
+            },
             margin: Space.all(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

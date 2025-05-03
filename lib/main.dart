@@ -4,6 +4,7 @@ import 'package:ecommerce_app_login/domain/cubit/theme/theme_cubit.dart';
 import 'package:ecommerce_app_login/ui/login/login_screen.dart';
 import 'package:ecommerce_app_login/ui/signup/create_profile.dart'
     show CreateProfileUI;
+import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart';
 import 'package:ecommerce_app_login/ui/signup/image_selction_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +29,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider<ThemeCubit>(create: (context) => ThemeCubit())],
+      providers: [
+        BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
+        BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
+      ],
       child: const MainApp(),
     );
   }
@@ -53,9 +57,10 @@ class _MainAppState extends State<MainApp> {
       },
       home: Builder(
         builder: (context) {
-          return CreateProfileUI();
+          return LoginScreen();
 
           // ignore: dead_code
+          return CreateProfileUI();
           return const LoginScreen();
           return ImageSelctionUI();
         },

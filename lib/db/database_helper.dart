@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:ecommerce_app_login/models/user_model.dart';
 import 'package:ecommerce_app_login/models/user_profile.dart';
 import 'package:path/path.dart';
@@ -98,6 +100,7 @@ class DBHelper {
     required String lastName,
     required String phone,
     required String address,
+    Uint8List? image,
   }) async {
     final db = await _database;
     await db.insert(_profileTable, {
@@ -106,6 +109,7 @@ class DBHelper {
       'last_name': lastName,
       'phone': phone,
       'address': address,
+      'image': image,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
