@@ -47,8 +47,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: AppText.b2!.cl(AppColors.grey500).notoSans().w(4),
               ),
             ),
-            _LoginTitles(title: S.email),
+
             AppInputText(
+              title: S.email,
               hint: S.dummyEmail,
               ctrl: emailController,
               type: AppInputType.email,
@@ -58,11 +59,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
 
-            _LoginTitles(title: S.password),
             ValueListenableBuilder(
               valueListenable: isPassVisible,
               builder: (BuildContext context, dynamic value, Widget? child) {
                 return AppInputText(
+                  title: S.password,
                   hint: '•••••••••',
                   visible: value,
                   type: AppInputType.password,
@@ -86,13 +87,13 @@ class _LoginScreenState extends State<LoginScreen> {
               },
             ),
 
-            if (!isRegistered) _LoginTitles(title: S.confirmPassword),
             if (!isRegistered)
               ValueListenableBuilder(
                 valueListenable: isConfPassVisible,
                 builder: (BuildContext context, dynamic value, Widget? child) {
                   return AppInputText(
                     hint: '•••••••••',
+                    title: S.confirmPassword,
                     visible: value,
                     type: AppInputType.password,
                     ctrl: confirmPasswordController,
@@ -245,22 +246,5 @@ class _LoginScreenState extends State<LoginScreen> {
         Tools.showSnack('Invalid credentials');
       }
     }
-  }
-}
-
-class _LoginTitles extends StatelessWidget {
-  const _LoginTitles({required this.title});
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      margin: Space.all().t(0.75),
-      child: Text(
-        title,
-        style: AppText.b3!.cl(AppColors.grey700).notoSans().w(5),
-      ),
-    );
   }
 }

@@ -58,6 +58,55 @@ class S {
   static const String allowPermission =
       '\nAllow File Permissions for Using Feature';
 
+  static const String personalInfo = "Personal Info";
+
+  static const String personalInfoMsg =
+      "You can add your personal data now or do it later";
+
+  static const String firstName = "First Name";
+
+  static const String lastName = "Last Name";
+
+  static const String phoneNumber = "Phone number";
+
+  static const String mailingAddress = "Mailing address";
+
+  static const String back = "Back";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
+  // static const String a = "";
+
   // static const String a = "";
 
   // static const String a = "";

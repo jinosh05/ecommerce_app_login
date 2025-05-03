@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
+import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
 import 'package:ecommerce_app_login/utils/regex_pattern.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class AppInputText extends StatelessWidget with AppInputMixin {
     this.maxLength,
     this.capitaliseText = false,
     this.onChanged,
+    required this.title,
   });
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -43,6 +45,7 @@ class AppInputText extends StatelessWidget with AppInputMixin {
   final EdgeInsets? contentPadding;
   final int? maxLength;
   final bool isOptional;
+  final String title;
   final ValueChanged<String>? onChanged;
 
   /// [capitaliseText] allows us to convert all the texts into UpperCase
@@ -50,55 +53,69 @@ class AppInputText extends StatelessWidget with AppInputMixin {
 
   @override
   Widget build(final BuildContext context) {
-    return TextFormField(
-      controller: ctrl,
-      keyboardType: getKeyboard(type),
-      inputFormatters:
-          type != AppInputType.integer
-              ? null
-              : [
-                // for version 2 and greater youcan also use this
-                FilteringTextInputFormatter.digitsOnly,
-              ],
-      validator: (final value) {
-        if (validator != null) {
-          return validator!(value);
-        }
-        return validateMethod(value, type, isOptional: isOptional);
-      },
-      onChanged: (final value) {
-        if (capitaliseText && ctrl != null) {
-          turnUpperCase(ctrl!);
-        }
-        onChanged?.call(value);
-      },
-      readOnly: !enabled,
-      textCapitalization:
-          capitaliseText
-              ? TextCapitalization.characters
-              : TextCapitalization.none,
-      obscureText: !visible,
-      style: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
-      maxLength: maxLength,
-      decoration: InputDecoration(
-        fillColor: color ?? AppColors.primary.adjustOpacity(0.08),
-        filled: true,
-        counterStyle: AppText.l1!.w(5),
-        isDense: true,
-        alignLabelWithHint: true,
-        hintText: hint,
-        hintStyle: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
-        contentPadding: contentPadding ?? Space.all(1, 0.75),
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        suffixIcon: suffixIcon,
-        helperText: helper,
-        prefixIcon: prefixIcon,
-        helperStyle: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
-        errorStyle: AppText.l1!.pop().w(7),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          alignment: Alignment.centerLeft,
+          margin: Space.all().t(0.75),
+          child: Text(
+            title,
+            style: AppText.b3!.cl(AppColors.grey700).notoSans().w(5),
+          ),
+        ),
+
+        TextFormField(
+          controller: ctrl,
+          keyboardType: getKeyboard(type),
+          inputFormatters:
+              type != AppInputType.integer
+                  ? null
+                  : [
+                    // for version 2 and greater youcan also use this
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+          validator: (final value) {
+            if (validator != null) {
+              return validator!(value);
+            }
+            return validateMethod(value, type, isOptional: isOptional);
+          },
+          onChanged: (final value) {
+            if (capitaliseText && ctrl != null) {
+              turnUpperCase(ctrl!);
+            }
+            onChanged?.call(value);
+          },
+          readOnly: !enabled,
+          textCapitalization:
+              capitaliseText
+                  ? TextCapitalization.characters
+                  : TextCapitalization.none,
+          obscureText: !visible,
+          style: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
+          maxLength: maxLength,
+          decoration: InputDecoration(
+            fillColor: color ?? AppColors.primary.adjustOpacity(0.08),
+            filled: true,
+            counterStyle: AppText.l1!.w(5),
+            isDense: true,
+            alignLabelWithHint: true,
+            hintText: hint,
+            hintStyle: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
+            contentPadding: contentPadding ?? Space.all(1, 0.75),
+            border: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            suffixIcon: suffixIcon,
+            helperText: helper,
+            prefixIcon: prefixIcon,
+            helperStyle: style ?? AppText.b2!.notoSans().cl(AppColors.grey900),
+            errorStyle: AppText.l1!.pop().w(7),
+          ),
+        ),
+      ],
     );
   }
 }
