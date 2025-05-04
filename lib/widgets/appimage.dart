@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerce_app_login/configs/app_dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
@@ -92,7 +93,8 @@ class AppImage extends StatelessWidget {
       color: color,
 
       errorWidget:
-          (final context, final url, final error) => const Icon(Icons.error),
+          (final context, final url, final error) =>
+              Icon(Icons.error, size: AppDimensions.font(15)),
     );
   }
 }

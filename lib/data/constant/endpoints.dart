@@ -17,6 +17,5 @@ class Endpoints {
   // connectTimeout
   static const int connectionTimeout = 15;
 
-  static const String getVerificationCode =
-      '$_nbaseUrl/auth/phone/get-verification-code';
+  static const String photos = "https://jsonplaceholder.typicode.com/photos";
 }
