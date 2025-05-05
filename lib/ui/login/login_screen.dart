@@ -249,6 +249,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         if (profile != null) {
           await AuthService().setLoggedIn();
+          await AuthService().setEmail(email);
           AppRoutes.makeFirst(context, HomeScreen());
         } else {
           context.read<RegisterCubit>().setCredentials(

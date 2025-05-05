@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:bloc/bloc.dart';
 import 'package:ecommerce_app_login/domain/db/database_helper.dart';
+import 'package:ecommerce_app_login/services/auth_services.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,6 +46,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         address: address,
         image: _image,
       );
+      await AuthService().setEmail(email ?? '');
 
       emit(RegisterSuccess());
     } catch (e) {

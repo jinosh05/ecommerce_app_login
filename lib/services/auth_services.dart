@@ -15,12 +15,19 @@ class AuthService {
 
   final String _isLoggedIn = 'is_logged_in';
 
+  final String _email = 'email';
+
   //
   //    INSTANCE OF SHARED PREFERENCE
   //
   Future<SharedPreferences> instance() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs;
+  }
+
+  Future<String> getEmail() async {
+    final prefs = await instance();
+    return prefs.getString(_email) ?? '';
   }
 
   ///
@@ -38,6 +45,11 @@ class AuthService {
   Future<void> setLoggedIn() async {
     final prefs = await instance();
     await prefs.setBool(_isLoggedIn, true);
+  }
+
+  Future<void> setEmail(final String email) async {
+    final prefs = await instance();
+    await prefs.setString(_email, email);
   }
 
   Future<void> resetAll() async {
