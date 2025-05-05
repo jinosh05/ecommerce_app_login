@@ -8,7 +8,6 @@ import 'package:ecommerce_app_login/domain/models/event_users.dart'
     show EventUsersModel;
 import 'package:ecommerce_app_login/domain/models/photo_model.dart';
 import 'package:ecommerce_app_login/domain/models/posts_model.dart';
-import 'package:ecommerce_app_login/services/auth_services.dart';
 import 'package:ecommerce_app_login/utils/tools.dart';
 import 'package:ecommerce_app_login/widgets/app_column.dart';
 import 'package:ecommerce_app_login/widgets/appimage.dart' show AppImage;
@@ -25,14 +24,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: InkWell(
-          onTap: () async {
-            AuthService().resetAll();
-          },
-          child: Text("Home"),
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        selectedItemColor: AppColors.grey300,
+        unselectedItemColor: AppColors.grey300,
+        enableFeedback: false,
+        selectedLabelStyle: AppText.b3!.notoSans().cl(AppColors.grey300).w(5),
+        unselectedLabelStyle: AppText.b3!.notoSans().cl(AppColors.grey300).w(5),
+        items: [
+          BottomNavigationBarItem(
+            icon: AppImage(imageUrl: Assets.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: AppImage(imageUrl: Assets.profileIcon),
+            label: "Profile",
+          ),
+        ],
       ),
+
       body: AppColumn(
         padding: Space.z,
         children: [
