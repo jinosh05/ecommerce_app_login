@@ -4,8 +4,12 @@ import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
 import 'package:ecommerce_app_login/data/network/api_provider.dart';
+import 'package:ecommerce_app_login/domain/models/event_users.dart'
+    show EventUsersModel;
 import 'package:ecommerce_app_login/domain/models/photo_model.dart';
+import 'package:ecommerce_app_login/domain/models/posts_model.dart';
 import 'package:ecommerce_app_login/services/auth_services.dart';
+import 'package:ecommerce_app_login/utils/tools.dart';
 import 'package:ecommerce_app_login/widgets/app_column.dart';
 import 'package:ecommerce_app_login/widgets/appimage.dart' show AppImage;
 import 'package:flutter/material.dart';
@@ -32,34 +36,34 @@ class _HomeScreenState extends State<HomeScreen> {
       body: AppColumn(
         padding: Space.z,
         children: [
-          // FutureBuilder<List<PhotosModel>>(
-          //   future: ApiProvider().getPhotos(),
-          //   builder: (
-          //     BuildContext context,
-          //     AsyncSnapshot<List<PhotosModel>> snapshot,
-          //   ) {
-          //     if (snapshot.hasData) {
-          //       if (snapshot.data != null) {
-          //         var data = snapshot.data ?? [];
-          //         var trimmedData =
-          //             data.length > 10 ? data.sublist(0, 10) : data;
-          //         return SizedBox(
-          //           height: AppDimensions.height(25),
-          //           child: PageView.builder(
-          //             itemBuilder: (context, index) {
-          //               return AppImage(
-          //                 imageUrl: trimmedData[index].url,
-          //                 fit: BoxFit.cover,
-          //               );
-          //             },
-          //             itemCount: trimmedData.length,
-          //           ),
-          //         );
-          //       }
-          //     }
-          //     return SizedBox();
-          //   },
-          // ),
+          FutureBuilder<List<PhotosModel>>(
+            future: ApiProvider().getPhotos(),
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<List<PhotosModel>> snapshot,
+            ) {
+              if (snapshot.hasData) {
+                if (snapshot.data != null) {
+                  var data = snapshot.data ?? [];
+                  var trimmedData =
+                      data.length > 10 ? data.sublist(0, 10) : data;
+                  return SizedBox(
+                    height: AppDimensions.height(25),
+                    child: PageView.builder(
+                      itemBuilder: (context, index) {
+                        return AppImage(
+                          imageUrl: trimmedData[index].url,
+                          fit: BoxFit.cover,
+                        );
+                      },
+                      itemCount: trimmedData.length,
+                    ),
+                  );
+                }
+              }
+              return SizedBox();
+            },
+          ),
           Padding(
             padding: Space.all(1, 0.5),
             child: Text(
@@ -75,79 +79,79 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
 
-          // FutureBuilder<List<EventUsersModel>>(
-          //   future: ApiProvider().getEventUsers(),
-          //   builder: (
-          //     BuildContext context,
-          //     AsyncSnapshot<List<EventUsersModel>> snapshot,
-          //   ) {
-          //     if (snapshot.hasData) {
-          //       if (snapshot.data != null) {
-          //         return ListView.separated(
-          //           padding: Space.all(1, 0),
-          //           separatorBuilder: (context, index) {
-          //             return Divider(color: AppColors.grey100);
-          //           },
+          FutureBuilder<List<EventUsersModel>>(
+            future: ApiProvider().getEventUsers(),
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<List<EventUsersModel>> snapshot,
+            ) {
+              if (snapshot.hasData) {
+                if (snapshot.data != null) {
+                  return ListView.separated(
+                    padding: Space.all(1, 0),
+                    separatorBuilder: (context, index) {
+                      return Divider(color: AppColors.grey100);
+                    },
 
-          //           itemCount: snapshot.data!.length,
-          //           shrinkWrap: true,
-          //           physics: NeverScrollableScrollPhysics(),
-          //           itemBuilder: (context, index) {
-          //             var data = snapshot.data![index];
-          //             return Row(
-          //               children: [
-          //                 AppImage(
-          //                   imageUrl:
-          //                       'https://ui-avatars.com/api/?name=John+Doe',
-          //                   size: AppDimensions.font(20),
-          //                 ),
+                    itemCount: snapshot.data!.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      var data = snapshot.data![index];
+                      return Row(
+                        children: [
+                          AppImage(
+                            imageUrl:
+                                'https://ui-avatars.com/api/?name=John+Doe',
+                            size: AppDimensions.font(20),
+                          ),
 
-          //                 Space.x1!,
-          //                 Expanded(
-          //                   child: Text.rich(
-          //                     TextSpan(
-          //                       text: data.name,
-          //                       children: [
-          //                         TextSpan(
-          //                           text: "\n${data.email}",
-          //                           style: AppText.l1!
-          //                               .w(4)
-          //                               .notoSans()
-          //                               .cl(AppColors.grey500),
-          //                         ),
-          //                       ],
-          //                       style: AppText.b3!
-          //                           .w(4)
-          //                           .notoSans()
-          //                           .cl(AppColors.grey900),
-          //                     ),
-          //                   ),
-          //                 ),
-          //                 InkWell(
-          //                   onTap: () async {
-          //                     try {
-          //                       await Tools().sendEmail(
-          //                         toEmail: data.email.toLowerCase(),
-          //                       );
-          //                     } catch (e) {
-          //                       Tools.showSnack(e.toString());
-          //                     }
-          //                   },
-          //                   child: AppImage(
-          //                     imageUrl: Assets.messageIcon,
-          //                     size: AppDimensions.font(10),
-          //                   ),
-          //                 ),
-          //               ],
-          //             );
-          //           },
-          //         );
-          //       }
-          //     }
+                          Space.x1!,
+                          Expanded(
+                            child: Text.rich(
+                              TextSpan(
+                                text: data.name,
+                                children: [
+                                  TextSpan(
+                                    text: "\n${data.email}",
+                                    style: AppText.l1!
+                                        .w(4)
+                                        .notoSans()
+                                        .cl(AppColors.grey500),
+                                  ),
+                                ],
+                                style: AppText.b3!
+                                    .w(4)
+                                    .notoSans()
+                                    .cl(AppColors.grey900),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              try {
+                                await Tools().sendEmail(
+                                  toEmail: data.email.toLowerCase(),
+                                );
+                              } catch (e) {
+                                Tools.showSnack(e.toString());
+                              }
+                            },
+                            child: AppImage(
+                              imageUrl: Assets.messageIcon,
+                              size: AppDimensions.font(10),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              }
 
-          //     return SizedBox();
-          //   },
-          // ),
+              return SizedBox();
+            },
+          ),
           Padding(
             padding: Space.all(1, 0.5),
             child: Row(
@@ -235,6 +239,45 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 }
               }
+              return SizedBox();
+            },
+          ),
+
+          FutureBuilder<List<PostsModel>>(
+            future: ApiProvider().getPosts(),
+
+            builder: (
+              BuildContext context,
+              AsyncSnapshot<List<PostsModel>> snapshot,
+            ) {
+              if (snapshot.hasData) {
+                if (snapshot.data != null) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.grey500, width: 0.5),
+                    ),
+                    alignment: Alignment.center,
+                    padding: Space.v1,
+                    child: Text.rich(
+                      TextSpan(
+                        text: snapshot.data!.length.toString(),
+                        children: [
+                          TextSpan(
+                            text: "\n${S.posts}",
+                            style: AppText.b3!
+                                .w(5)
+                                .notoSans()
+                                .cl(AppColors.grey500),
+                          ),
+                        ],
+                      ),
+                      style: AppText.b1!.priClr().w(6),
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                }
+              }
+
               return SizedBox();
             },
           ),

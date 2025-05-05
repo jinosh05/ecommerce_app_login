@@ -19,7 +19,7 @@ class Endpoints {
 
   static const String eventUsers = "https://jsonplaceholder.typicode.com/users";
 
-  // static const String a = '';
+  static const String postsList = 'https://jsonplaceholder.typicode.com/posts';
 
   // static const String a = '';
 

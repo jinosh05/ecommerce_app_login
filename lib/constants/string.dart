@@ -77,7 +77,7 @@ class S {
 
   static const String allPhotos = "All Photos";
 
-  // static const String a = "";
+  static const String posts = "Posts";
 
   // static const String a = "";
 
