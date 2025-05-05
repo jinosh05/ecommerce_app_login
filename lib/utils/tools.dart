@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Tools {
   static void showSnack(String message) {
@@ -62,5 +63,19 @@ class Tools {
   static int adjustTo600(final int value) {
     const target = 600;
     return value > target ? target : value;
+  }
+
+  Future<void> sendEmail({required String toEmail}) async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: toEmail,
+      queryParameters: {'subject': "Hello", 'body': "Greetings from Jinosh"},
+    );
+
+    if (await canLaunchUrl(emailLaunchUri)) {
+      await launchUrl(emailLaunchUri);
+    } else {
+      throw 'Could not launch email!';
+    }
   }
 }

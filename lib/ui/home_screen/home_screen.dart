@@ -6,6 +6,7 @@ import 'package:ecommerce_app_login/constants/resources.dart';
 import 'package:ecommerce_app_login/data/network/api_provider.dart';
 import 'package:ecommerce_app_login/domain/models/event_users.dart';
 import 'package:ecommerce_app_login/services/auth_services.dart';
+import 'package:ecommerce_app_login/utils/tools.dart';
 import 'package:ecommerce_app_login/widgets/app_column.dart';
 import 'package:ecommerce_app_login/widgets/appimage.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () async {
+                              try {
+                                await Tools().sendEmail(
+                                  toEmail: data.email.toLowerCase(),
+                                );
+                              } catch (e) {
+                                Tools.showSnack(e.toString());
+                              }
+                            },
                             child: AppImage(
                               imageUrl: Assets.messageIcon,
                               size: AppDimensions.font(10),
