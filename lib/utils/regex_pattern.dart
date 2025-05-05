@@ -36,10 +36,8 @@ class RegexPattern {
   /// Alphabet, Numeric, Symbol Only regex (No Whitespace & Symbols)
   static String alphaNumericSymbolOnly = r'^[a-zA-Z0-9!@#$%^&*()-_+=]+$';
 
-  /// Password (Easy) Regex
-  /// Allowing all character except 'whitespace'
-  /// Minimum character: 8
-  static String passwordEasy = r'^\S{8,}$';
+  // Updated regex (at least 3 characters, 1 capital, 1 lowercase, 1 number)
+  static String passwordRegex = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{3,}$';
 
   /// UPI ID (No whitespace)
   static String upiId = r'^[a-zA-Z0-9.-]{2,256}@[a-zA-Z][a-zA-Z]{2,64}$';
