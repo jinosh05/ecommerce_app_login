@@ -28,30 +28,28 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
-        BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
-        BlocProvider<UpdateCubit>(create: (context) => UpdateCubit()),
-        BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
-      ],
-      child: const MainApp(),
-    );
-  }
+  Widget build(final BuildContext context) => MultiBlocProvider(
+    providers: [
+      BlocProvider<ThemeCubit>(create: (final context) => ThemeCubit()),
+      BlocProvider<RegisterCubit>(create: (final context) => RegisterCubit()),
+      BlocProvider<UpdateCubit>(create: (final context) => UpdateCubit()),
+      BlocProvider<ProfileBloc>(create: (final context) => ProfileBloc()),
+    ],
+    child: const MainApp(),
+  );
 }
 
 class _MainAppState extends State<MainApp> {
   @override
-  Widget build(BuildContext context) {
-    ThemeCubit themeCubit = BlocProvider.of<ThemeCubit>(context, listen: true);
+  Widget build(final BuildContext context) {
+    final themeCubit = BlocProvider.of<ThemeCubit>(context, listen: true);
     return MaterialApp(
       navigatorKey: navigatorKey,
       themeMode: themeCubit.themeMode,
       theme: AppTheme.theme,
       darkTheme: AppTheme.theme,
       debugShowCheckedModeBanner: false,
-      builder: (context, child) {
+      builder: (final context, final child) {
         ///
         /// Initial Properties of app are initiated
         ///
@@ -59,23 +57,23 @@ class _MainAppState extends State<MainApp> {
         return child!;
       },
       home: FutureBuilder(
-        future: Future(() async {
-          return await AuthService().isLoggedIn();
-        }),
+        future: Future(() async => AuthService().isLoggedIn()),
 
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+        builder: (final context, final snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
-              if (snapshot.data) {
-                context.read<ProfileBloc>().add(FetchProfile());
+              if (snapshot.data != null) {
+                if (snapshot.data!) {
+                  context.read<ProfileBloc>().add(FetchProfile());
 
-                return HomeScreen();
-              } else {
-                return LoginScreen();
+                  return const HomeScreen();
+                } else {
+                  return const LoginScreen();
+                }
               }
             }
           }
-          return Scaffold(body: Center(child: FlutterLogo()));
+          return const Scaffold(body: Center(child: FlutterLogo()));
         },
       ),
     );

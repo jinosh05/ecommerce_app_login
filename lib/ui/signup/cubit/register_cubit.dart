@@ -15,20 +15,24 @@ class RegisterCubit extends Cubit<RegisterState> {
   String? _password;
   Uint8List? _image;
 
-  void setCredentials({required String emailValue, required String password}) {
+  void setCredentials({
+    required final String emailValue,
+    required final String password,
+  }) {
     email = emailValue;
     _password = password;
   }
 
-  void setImage({required Uint8List? image}) {
+  // ignore: use_setters_to_change_properties
+  void setImage({required final Uint8List? image}) {
     _image = image;
   }
 
   Future<void> registerProfile({
-    required String firstName,
-    required String lastName,
-    required String phone,
-    required String address,
+    required final String firstName,
+    required final String lastName,
+    required final String phone,
+    required final String address,
   }) async {
     emit(RegisterLoading());
 
@@ -50,7 +54,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
       emit(RegisterSuccess());
     } catch (e) {
-      emit(RegisterFailure('Registration failed: ${e.toString()}'));
+      emit(RegisterFailure('Registration failed: $e'));
     }
   }
 }

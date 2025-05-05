@@ -37,40 +37,39 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool isRegistered = true;
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Form(
-        key: formkey,
-        child: AppColumn(
-          cstart: false,
-          children: [
-            Space.yf(4),
+  Widget build(final BuildContext context) => Scaffold(
+    backgroundColor: Colors.white,
+    body: Form(
+      key: formkey,
+      child: AppColumn(
+        cstart: false,
+        children: [
+          Space.yf(4),
 
-            Text(S.welcome, style: AppText.h2!.cl(AppColors.grey900).w(6)),
-            Padding(
-              padding: Space.v1!,
-              child: Text(
-                S.welcomeMsg,
-                style: AppText.b2!.cl(AppColors.grey500).notoSans().w(4),
-              ),
+          Text(S.welcome, style: AppText.h2!.cl(AppColors.grey900).w(6)),
+          Padding(
+            padding: Space.v1!,
+            child: Text(
+              S.welcomeMsg,
+              style: AppText.b2!.cl(AppColors.grey500).notoSans().w(4),
             ),
+          ),
 
-            AppInputText(
-              title: S.email,
-              hint: S.dummyEmail,
-              ctrl: emailController,
-              type: AppInputType.email,
-              prefixIcon: Padding(
-                padding: Space.all(0.6),
-                child: AppImage(imageUrl: Assets.mail),
-              ),
+          AppInputText(
+            title: S.email,
+            hint: S.dummyEmail,
+            ctrl: emailController,
+            type: AppInputType.email,
+            prefixIcon: Padding(
+              padding: Space.all(0.6),
+              child: const AppImage(imageUrl: Assets.mail),
             ),
+          ),
 
-            ValueListenableBuilder(
-              valueListenable: isPassVisible,
-              builder: (BuildContext context, dynamic value, Widget? child) {
-                return AppInputText(
+          ValueListenableBuilder(
+            valueListenable: isPassVisible,
+            builder:
+                (final context, final value, final child) => AppInputText(
                   title: S.password,
                   hint: '•••••••••',
                   visible: value,
@@ -78,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ctrl: passwordController,
                   prefixIcon: Padding(
                     padding: Space.all(0.6),
-                    child: AppImage(imageUrl: Assets.passwordLock),
+                    child: const AppImage(imageUrl: Assets.passwordLock),
                   ),
                   suffixIcon: GestureDetector(
                     onTap: () => isPassVisible.value = !isPassVisible.value,
@@ -91,15 +90,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+          ),
 
-            if (!isRegistered)
-              ValueListenableBuilder(
-                valueListenable: isConfPassVisible,
-                builder: (BuildContext context, dynamic value, Widget? child) {
-                  return AppInputText(
+          if (!isRegistered)
+            ValueListenableBuilder(
+              valueListenable: isConfPassVisible,
+              builder:
+                  (final context, final value, final child) => AppInputText(
                     hint: '•••••••••',
                     title: S.confirmPassword,
                     visible: value,
@@ -107,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ctrl: confirmPasswordController,
                     prefixIcon: Padding(
                       padding: Space.all(0.6),
-                      child: AppImage(imageUrl: Assets.passwordLock),
+                      child: const AppImage(imageUrl: Assets.passwordLock),
                     ),
                     suffixIcon: GestureDetector(
                       onTap:
@@ -123,44 +121,96 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                  );
-                },
-              ),
-
-            Padding(
-              padding: Space.z!.t(0.5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    S.restorePassword,
-                    style: AppText.b2!.cl(AppColors.primary).notoSans().w(6),
                   ),
-                  Padding(
-                    padding: Space.all(),
-                    child: AppImage(
-                      imageUrl: Assets.arrowRight,
-                      size: AppDimensions.font(6),
-                    ),
-                  ),
-                ],
-              ),
             ),
-            Space.yf(5),
 
+          Padding(
+            padding: Space.z!.t(0.5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  S.restorePassword,
+                  style: AppText.b2!.cl(AppColors.primary).notoSans().w(6),
+                ),
+                Padding(
+                  padding: Space.all(),
+                  child: AppImage(
+                    imageUrl: Assets.arrowRight,
+                    size: AppDimensions.font(6),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Space.yf(5),
+
+          PrimaryButton.withChild(
+            onPressed: () async {
+              if (isRegistered) {
+                await onLogin();
+              } else {
+                Tools.showSnack('Email not found, please register');
+              }
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  S.login,
+                  style: AppText.b2!.cl(Colors.white).w(6).notoSans(),
+                ),
+                Space.x!,
+                Icon(
+                  Icons.arrow_forward,
+                  size: AppDimensions.font(10),
+                  color: Colors.white,
+                ),
+              ],
+            ),
+          ),
+
+          if (!isRegistered)
             PrimaryButton.withChild(
               onPressed: () async {
-                if (isRegistered) {
-                  await onLogin();
-                } else {
-                  Tools.showSnack('Email not found, please register');
+                if (!formkey.currentState!.validate()) {
+                  return;
                 }
+
+                final email = emailController.text.trim();
+                final password = passwordController.text.trim();
+                final confirmPassword = confirmPasswordController.text.trim();
+
+                if (password != confirmPassword) {
+                  Tools.showSnack('Passwords do not match');
+                  return;
+                }
+
+                final existingUser = await DBHelper.getUserByEmail(email);
+                if (existingUser != null) {
+                  Tools.showSnack('User already exists. Please log in.');
+                  return;
+                }
+
+                await DBHelper.registerUser(email, password);
+                Tools.showSnack('Registered Successfully');
+                // ignore: use_build_context_synchronously
+                context.read<RegisterCubit>().setCredentials(
+                  emailValue: email,
+                  password: password,
+                );
+                await AppRoutes.makeFirst(context, const ImageSelctionUI());
+                emailController.clear();
+                passwordController.clear();
+                confirmPasswordController.clear();
+                setState(() => isRegistered = true);
               },
+              margin: Space.v1,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    S.login,
+                    S.signUp,
                     style: AppText.b2!.cl(Colors.white).w(6).notoSans(),
                   ),
                   Space.x!,
@@ -172,62 +222,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-
-            if (!isRegistered)
-              PrimaryButton.withChild(
-                onPressed: () async {
-                  if (!formkey.currentState!.validate()) return;
-
-                  final email = emailController.text.trim();
-                  final password = passwordController.text.trim();
-                  final confirmPassword = confirmPasswordController.text.trim();
-
-                  if (password != confirmPassword) {
-                    Tools.showSnack('Passwords do not match');
-                    return;
-                  }
-
-                  final existingUser = await DBHelper.getUserByEmail(email);
-                  if (existingUser != null) {
-                    Tools.showSnack('User already exists. Please log in.');
-                    return;
-                  }
-
-                  await DBHelper.registerUser(email, password);
-                  Tools.showSnack('Registered Successfully');
-                  // ignore: use_build_context_synchronously
-                  context.read<RegisterCubit>().setCredentials(
-                    emailValue: email,
-                    password: password,
-                  );
-                  await AppRoutes.makeFirst(context, ImageSelctionUI());
-                  emailController.clear();
-                  passwordController.clear();
-                  confirmPasswordController.clear();
-                  setState(() => isRegistered = true);
-                },
-                margin: Space.v1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      S.signUp,
-                      style: AppText.b2!.cl(Colors.white).w(6).notoSans(),
-                    ),
-                    Space.x!,
-                    Icon(
-                      Icons.arrow_forward,
-                      size: AppDimensions.font(10),
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ),
-          ],
-        ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 
   Future<void> onLogin() async {
     final email = emailController.text.trim();
@@ -253,13 +251,13 @@ class _LoginScreenState extends State<LoginScreen> {
           await AuthService().setEmail(email);
           context.read<ProfileBloc>().add(FetchProfile());
 
-          AppRoutes.makeFirst(context, HomeScreen());
+          await AppRoutes.makeFirst(context, const HomeScreen());
         } else {
           context.read<RegisterCubit>().setCredentials(
             emailValue: email,
             password: password,
           );
-          AppRoutes.makeFirst(context, ImageSelctionUI());
+          await AppRoutes.makeFirst(context, const ImageSelctionUI());
         }
       } else {
         Tools.showSnack('Invalid credentials');

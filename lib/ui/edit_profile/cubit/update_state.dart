@@ -12,9 +12,9 @@ class UpdateLoading extends UpdateState {}
 class UpdateSuccess extends UpdateState {}
 
 class UpdateFailure extends UpdateState {
-  final String error;
 
   UpdateFailure(this.error);
+  final String error;
 
   @override
   List<Object> get props => [error];

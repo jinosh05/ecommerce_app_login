@@ -1,12 +1,6 @@
 import 'dart:typed_data';
 
 class UserProfile {
-  final String email;
-  final String firstName;
-  final String lastName;
-  final String phone;
-  final String address;
-  final Uint8List? image;
 
   UserProfile({
     required this.email,
@@ -17,8 +11,7 @@ class UserProfile {
     this.image, // Optional image field
   });
 
-  factory UserProfile.fromMap(Map<String, dynamic> map) {
-    return UserProfile(
+  factory UserProfile.fromMap(final Map<String, dynamic> map) => UserProfile(
       email: map['email'],
       firstName: map['first_name'],
       lastName: map['last_name'],
@@ -26,10 +19,14 @@ class UserProfile {
       address: map['address'],
       image: map['image'], // Assuming it's a BLOB
     );
-  }
+  final String email;
+  final String firstName;
+  final String lastName;
+  final String phone;
+  final String address;
+  final Uint8List? image;
 
-  Map<String, dynamic> toMap() {
-    return {
+  Map<String, dynamic> toMap() => {
       'email': email,
       'first_name': firstName,
       'last_name': lastName,
@@ -37,5 +34,4 @@ class UserProfile {
       'address': address,
       'image': image, // Store image as BLOB
     };
-  }
 }

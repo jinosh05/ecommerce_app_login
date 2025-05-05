@@ -15,9 +15,9 @@ class Endpoints {
   // connectTimeout
   static const int connectionTimeout = 15;
 
-  static const String photos = "https://jsonplaceholder.typicode.com/photos";
+  static const String photos = 'https://jsonplaceholder.typicode.com/photos';
 
-  static const String eventUsers = "https://jsonplaceholder.typicode.com/users";
+  static const String eventUsers = 'https://jsonplaceholder.typicode.com/users';
 
   static const String postsList = 'https://jsonplaceholder.typicode.com/posts';
 

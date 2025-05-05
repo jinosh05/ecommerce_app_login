@@ -1,3 +1,3 @@
 class Env {
-  static const String baseUrl = "https://google.com";
+  static const String baseUrl = 'https://google.com';
 }

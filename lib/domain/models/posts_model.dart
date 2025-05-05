@@ -4,18 +4,14 @@
 
 import 'dart:convert';
 
-List<PostsModel> postsModelFromJson(String str) =>
-    List<PostsModel>.from(json.decode(str).map((x) => PostsModel.fromJson(x)));
+List<PostsModel> postsModelFromJson(final String str) => List<PostsModel>.from(
+  json.decode(str).map((final x) => PostsModel.fromJson(x)),
+);
 
-String postsModelToJson(List<PostsModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String postsModelToJson(final List<PostsModel> data) =>
+    json.encode(List<dynamic>.from(data.map((final x) => x.toJson())));
 
 class PostsModel {
-  int userId;
-  int id;
-  String title;
-  String body;
-
   PostsModel({
     required this.userId,
     required this.id,
@@ -23,17 +19,21 @@ class PostsModel {
     required this.body,
   });
 
-  factory PostsModel.fromJson(Map<String, dynamic> json) => PostsModel(
-    userId: json["userId"],
-    id: json["id"],
-    title: json["title"],
-    body: json["body"],
+  factory PostsModel.fromJson(final Map<String, dynamic> json) => PostsModel(
+    userId: json['userId'],
+    id: json['id'],
+    title: json['title'],
+    body: json['body'],
   );
+  int userId;
+  int id;
+  String title;
+  String body;
 
   Map<String, dynamic> toJson() => {
-    "userId": userId,
-    "id": id,
-    "title": title,
-    "body": body,
+    'userId': userId,
+    'id': id,
+    'title': title,
+    'body': body,
   };
 }

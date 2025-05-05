@@ -24,11 +24,10 @@ class ImageSelctionUI extends StatefulWidget {
 class _ImageSelctionUIState extends State<ImageSelctionUI> {
   Uint8List? image;
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
       body: Column(
         children: [
-          Spacer(),
+          const Spacer(),
           Text(S.welcome, style: AppText.h2!.cl(AppColors.grey900).w(6)),
           Padding(
             padding: Space.all(2, 1).b(2),
@@ -44,7 +43,7 @@ class _ImageSelctionUIState extends State<ImageSelctionUI> {
                 image = await Tools().pickImage();
                 setState(() {});
               } on Exception catch (e) {
-                debugPrint("Exceptio $e");
+                debugPrint('Exceptio $e');
               }
             },
             child:
@@ -59,11 +58,11 @@ class _ImageSelctionUIState extends State<ImageSelctionUI> {
                       height: AppDimensions.width(50),
                     ),
           ),
-          Spacer(),
+          const Spacer(),
           PrimaryButton.withChild(
             onPressed: () async {
               context.read<RegisterCubit>().setImage(image: image);
-              await AppRoutes.push(context, CreateProfileUI());
+              await AppRoutes.push(context, const CreateProfileUI());
             },
             margin: Space.all(),
             child: Row(
@@ -85,5 +84,4 @@ class _ImageSelctionUIState extends State<ImageSelctionUI> {
         ],
       ),
     );
-  }
 }

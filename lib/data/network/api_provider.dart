@@ -10,8 +10,8 @@ class ApiProvider {
 
   Future<List<PhotosModel>> getPhotos() async {
     try {
-      var response = await client.get(Endpoints.photos);
-      var list = photosModelFromJson(response);
+      final response = await client.get(Endpoints.photos);
+      final list = photosModelFromJson(response);
 
       return list;
     } catch (e) {
@@ -22,8 +22,8 @@ class ApiProvider {
 
   Future<List<EventUsersModel>> getEventUsers() async {
     try {
-      var response = await client.get(Endpoints.eventUsers);
-      var list = eventUsersModelFromJson(response);
+      final response = await client.get(Endpoints.eventUsers);
+      final list = eventUsersModelFromJson(response);
 
       return list;
     } catch (e) {
@@ -34,8 +34,8 @@ class ApiProvider {
 
   Future<List<PostsModel>> getPosts() async {
     try {
-      var response = await client.get(Endpoints.postsList);
-      var list = postsModelFromJson(response);
+      final response = await client.get(Endpoints.postsList);
+      final list = postsModelFromJson(response);
 
       return list;
     } catch (e) {

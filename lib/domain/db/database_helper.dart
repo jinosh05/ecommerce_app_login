@@ -6,6 +6,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DBHelper {
+  DBHelper._();
+
   static Database? _db;
 
   static const String _userTable = 'users';
@@ -22,10 +24,10 @@ class DBHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'app.db');
 
-    return await openDatabase(
+    return openDatabase(
       path,
       version: 1,
-      onCreate: (db, version) async {
+      onCreate: (final db, final version) async {
         await db.execute('''
           CREATE TABLE $_userTable (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,7 +56,10 @@ class DBHelper {
   // -----------------------------------------------
 
   /// Log in user with email and password
-  static Future<UserModel?> login(String email, String password) async {
+  static Future<UserModel?> login(
+    final String email,
+    final String password,
+  ) async {
     final db = await _database;
     final result = await db.query(
       _userTable,
@@ -69,7 +74,10 @@ class DBHelper {
   }
 
   /// Register new user (email + password)
-  static Future<void> registerUser(String email, String password) async {
+  static Future<void> registerUser(
+    final String email,
+    final String password,
+  ) async {
     final db = await _database;
     await db.insert(
       _userTable,
@@ -83,7 +91,7 @@ class DBHelper {
   // -----------------------------------------------
 
   /// Check if profile exists for the given email
-  static Future<bool> profileExists(String email) async {
+  static Future<bool> profileExists(final String email) async {
     final db = await _database;
     final result = await db.query(
       _profileTable,
@@ -95,12 +103,12 @@ class DBHelper {
 
   /// Create a profile for a user
   static Future<void> createProfile({
-    required String email,
-    required String firstName,
-    required String lastName,
-    required String phone,
-    required String address,
-    Uint8List? image,
+    required final String email,
+    required final String firstName,
+    required final String lastName,
+    required final String phone,
+    required final String address,
+    final Uint8List? image,
   }) async {
     final db = await _database;
     await db.insert(_profileTable, {
@@ -114,7 +122,7 @@ class DBHelper {
   }
 
   /// Fetch profile data (optional helper)
-  static Future<UserProfile?> getProfile(String email) async {
+  static Future<UserProfile?> getProfile(final String email) async {
     final db = await _database;
     final result = await db.query(
       _profileTable,
@@ -127,7 +135,7 @@ class DBHelper {
     return null;
   }
 
-  static Future<UserModel?> getUserByEmail(String email) async {
+  static Future<UserModel?> getUserByEmail(final String email) async {
     final db = await _database;
     final result = await db.query(
       _userTable,
@@ -139,15 +147,14 @@ class DBHelper {
 
   /// Update an existing user profile
   static Future<void> updateProfile({
-    required String email,
-    required String firstName,
-    required String lastName,
-    required String phone,
-    required String address,
-    Uint8List? image,
+    required final String email,
+    required final String firstName,
+    required final String lastName,
+    required final String phone,
+    required final String address,
+    final Uint8List? image,
   }) async {
     final db = await _database;
-    print("Saving image bytes: ${image?.lengthInBytes}");
 
     await db.update(
       _profileTable,

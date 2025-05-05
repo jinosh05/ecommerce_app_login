@@ -32,62 +32,62 @@ class S {
   static const String noInternetMsg =
       "“Please Turn ON your Internet and Let's Network without Interruption”";
 
-  static const String welcome = "Welcome";
+  static const String welcome = 'Welcome';
 
-  static const String welcomeMsg = "Welcome to your Portal";
+  static const String welcomeMsg = 'Welcome to your Portal';
 
-  static const String email = "Email";
+  static const String email = 'Email';
 
-  static const String dummyEmail = "your.email@gmail.com";
+  static const String dummyEmail = 'your.email@gmail.com';
 
-  static const String password = "Password";
+  static const String password = 'Password';
 
-  static const String restorePassword = "Restore password";
+  static const String restorePassword = 'Restore password';
 
-  static const String login = "Login";
+  static const String login = 'Login';
 
-  static const String logout = "Logout";
+  static const String logout = 'Logout';
 
-  static const String signUp = "Sign Up";
+  static const String signUp = 'Sign Up';
 
-  static const String confirmPassword = "Confirm Password";
+  static const String confirmPassword = 'Confirm Password';
 
   static const String uploadImgMsg =
-      "You are logged in for the first time and can upload a profile photo";
+      'You are logged in for the first time and can upload a profile photo';
 
-  static const String next = "Next";
+  static const String next = 'Next';
 
   static const String allowPermission =
       '\nAllow File Permissions for Using Feature';
 
-  static const String personalInfo = "Personal Info";
+  static const String personalInfo = 'Personal Info';
 
   static const String personalInfoMsg =
-      "You can add your personal data now or do it later";
+      'You can add your personal data now or do it later';
 
-  static const String firstName = "First Name";
+  static const String firstName = 'First Name';
 
-  static const String lastName = "Last Name";
+  static const String lastName = 'Last Name';
 
-  static const String phoneNumber = "Phone number";
+  static const String phoneNumber = 'Phone number';
 
-  static const String mailingAddress = "Mailing address";
+  static const String mailingAddress = 'Mailing address';
 
-  static const String back = "Back";
+  static const String back = 'Back';
 
-  static const String photos = "Photos";
+  static const String photos = 'Photos';
 
-  static const String allPhotos = "All Photos";
+  static const String allPhotos = 'All Photos';
 
-  static const String posts = "Posts";
+  static const String posts = 'Posts';
 
-  static const String profile = "Profile";
+  static const String profile = 'Profile';
 
-  static const String editProfile = "Edit profile";
+  static const String editProfile = 'Edit profile';
 
-  static const String save = "Save";
+  static const String save = 'Save';
 
-  static const String edit = "Edit";
+  static const String edit = 'Edit';
 
   // static const String a = "";
 

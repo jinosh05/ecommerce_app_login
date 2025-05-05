@@ -13,24 +13,27 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   Future<void> _onFetchProfile(
-    FetchProfile event,
-    Emitter<ProfileState> emit,
+    final FetchProfile event,
+    final Emitter<ProfileState> emit,
   ) async {
     emit(ProfileLoading());
     try {
-      var email = await AuthService().getEmail();
+      final email = await AuthService().getEmail();
       final profile = await DBHelper.getProfile(email);
       if (profile != null) {
         emit(ProfileLoaded(profile));
       } else {
-        emit(ProfileError("Profile not found"));
+        emit(ProfileError('Profile not found'));
       }
     } catch (e) {
-      emit(ProfileError("Failed to load profile: $e"));
+      emit(ProfileError('Failed to load profile: $e'));
     }
   }
 
-  void _onLogoutProfile(LogoutProfile event, Emitter<ProfileState> emit) {
+  void _onLogoutProfile(
+    final LogoutProfile event,
+    final Emitter<ProfileState> emit,
+  ) {
     emit(ProfileInitial());
   }
 }

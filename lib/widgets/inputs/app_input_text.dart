@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 class AppInputText extends StatelessWidget with AppInputMixin {
   const AppInputText({
     required this.hint,
-    super.key,
+    required this.title, super.key,
     this.suffixIcon,
     this.ctrl,
     this.label,
@@ -27,7 +27,6 @@ class AppInputText extends StatelessWidget with AppInputMixin {
     this.maxLength,
     this.capitaliseText = false,
     this.onChanged,
-    required this.title,
   });
   final Widget? suffixIcon;
   final Widget? prefixIcon;
@@ -52,8 +51,7 @@ class AppInputText extends StatelessWidget with AppInputMixin {
   final bool capitaliseText;
 
   @override
-  Widget build(final BuildContext context) {
-    return Column(
+  Widget build(final BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -117,7 +115,6 @@ class AppInputText extends StatelessWidget with AppInputMixin {
         ),
       ],
     );
-  }
 }
 
 enum AppInputType {

@@ -33,7 +33,7 @@ class _AsyncButtonState extends State<AsyncButton> {
           onTap: value ? () {} : _onTap,
           child:
               value
-                  ? widget.customLoader ?? CircularProgressIndicator()
+                  ? widget.customLoader ?? const CircularProgressIndicator()
                   : widget.child,
         ),
   );

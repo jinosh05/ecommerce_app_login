@@ -94,7 +94,7 @@ class AppImage extends StatelessWidget {
 
       errorWidget:
           (final context, final url, final error) =>
-              AppImage(imageUrl: Assets.placeholder),
+              const AppImage(imageUrl: Assets.placeholder),
     );
   }
 }

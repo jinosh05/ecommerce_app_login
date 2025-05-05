@@ -13,20 +13,21 @@ class UpdateCubit extends Cubit<UpdateState> {
 
   Uint8List? _image;
 
-  void setImage({required Uint8List? image}) {
+  // ignore: use_setters_to_change_properties
+  void setImage({required final Uint8List? image}) {
     _image = image;
   }
 
   Future<void> updateProfile({
-    required String firstName,
-    required String lastName,
-    required String phone,
-    required String address,
+    required final String firstName,
+    required final String lastName,
+    required final String phone,
+    required final String address,
   }) async {
     emit(UpdateLoading());
 
     try {
-      var email = await AuthService().getEmail();
+      final email = await AuthService().getEmail();
       await DBHelper.updateProfile(
         email: email,
         firstName: firstName,
@@ -38,7 +39,7 @@ class UpdateCubit extends Cubit<UpdateState> {
 
       emit(UpdateSuccess());
     } catch (e) {
-      emit(UpdateFailure('Registration failed: ${e.toString()}'));
+      emit(UpdateFailure('Registration failed: $e'));
     }
   }
 }

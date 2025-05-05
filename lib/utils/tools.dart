@@ -11,14 +11,13 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Tools {
-  static void showSnack(String message) {
+  static void showSnack(final String message) {
     ScaffoldMessenger.of(
       navigatorKey.currentContext!,
     ).showSnackBar(SnackBar(content: Text(message, style: AppText.b3!.w(6))));
   }
 
   Future<Uint8List?> pickImage() async {
-    Uint8List? uint8list;
     try {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.image,
@@ -29,8 +28,7 @@ class Tools {
       if (result != null) {
         final files = result.files;
         if (files.isNotEmpty) {
-          uint8list = await compressImage(files.first.bytes!);
-          return uint8list;
+          return await compressImage(files.first.bytes!);
         }
       }
     } on PlatformException catch (e) {
@@ -65,17 +63,17 @@ class Tools {
     return value > target ? target : value;
   }
 
-  Future<void> sendEmail({required String toEmail}) async {
-    final Uri emailLaunchUri = Uri(
+  Future<void> sendEmail({required final String toEmail}) async {
+    final emailLaunchUri = Uri(
       scheme: 'mailto',
       path: toEmail,
-      queryParameters: {'subject': "Hello", 'body': "Greetings from Jinosh"},
+      queryParameters: {'subject': 'Hello', 'body': 'Greetings from Jinosh'},
     );
 
     if (await canLaunchUrl(emailLaunchUri)) {
       await launchUrl(emailLaunchUri);
     } else {
-      throw 'Could not launch email!';
+      throw Exception('Could not launch email!');
     }
   }
 }
