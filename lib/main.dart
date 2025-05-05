@@ -3,6 +3,7 @@ import 'package:ecommerce_app_login/configs/apptheme.dart';
 import 'package:ecommerce_app_login/domain/bloc/profile/profile_bloc.dart';
 import 'package:ecommerce_app_login/domain/cubit/theme/theme_cubit.dart';
 import 'package:ecommerce_app_login/services/auth_services.dart';
+import 'package:ecommerce_app_login/ui/edit_profile/cubit/update_cubit.dart';
 import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
 import 'package:ecommerce_app_login/ui/login/login_screen.dart';
 import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
         BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
+        BlocProvider<UpdateCubit>(create: (context) => UpdateCubit()),
         BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
       ],
       child: const MainApp(),

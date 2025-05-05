@@ -81,13 +81,13 @@ class S {
 
   static const String posts = "Posts";
 
-  // static const String a = "";
+  static const String profile = "Profile";
 
-  // static const String a = "";
+  static const String editProfile = "Edit profile";
 
-  // static const String a = "";
+  static const String save = "Save";
 
-  // static const String a = "";
+  static const String edit = "Edit";
 
   // static const String a = "";
 

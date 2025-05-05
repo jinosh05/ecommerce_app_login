@@ -12,6 +12,7 @@ import 'package:ecommerce_app_login/domain/models/event_users.dart'
     show EventUsersModel;
 import 'package:ecommerce_app_login/domain/models/photo_model.dart';
 import 'package:ecommerce_app_login/domain/models/posts_model.dart';
+import 'package:ecommerce_app_login/ui/edit_profile/edit_profile.dart';
 import 'package:ecommerce_app_login/ui/login/login_screen.dart';
 import 'package:ecommerce_app_login/utils/routes.dart';
 import 'package:ecommerce_app_login/utils/tools.dart';
@@ -45,35 +46,42 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: Space.all(1).t(2.5),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        data.image != null
-                            ? Image.memory(
-                              data.image!,
-                              width: AppDimensions.font(25),
-                              height: AppDimensions.font(25),
-                            )
-                            : Icon(
-                              CupertinoIcons.profile_circled,
-                              size: AppDimensions.font(25),
-                            ),
-                        Space.x1!,
-
-                        Text.rich(
-                          TextSpan(
-                            text: data.firstName,
-                            children: [
-                              TextSpan(
-                                text: "\n${data.email}",
-                                style: AppText.l1!.notoSans().cl(
-                                  AppColors.grey500,
-                                ),
+                    GestureDetector(
+                      onTap: () async {
+                        await AppRoutes.push(context, EditProfileUI());
+                      },
+                      child: Row(
+                        children: [
+                          data.image != null
+                              ? Image.memory(
+                                data.image!,
+                                width: AppDimensions.font(25),
+                                height: AppDimensions.font(25),
+                              )
+                              : Icon(
+                                CupertinoIcons.profile_circled,
+                                size: AppDimensions.font(25),
                               ),
-                            ],
-                            style: AppText.b3!.notoSans().cl(AppColors.grey900),
+                          Space.x1!,
+
+                          Text.rich(
+                            TextSpan(
+                              text: data.firstName,
+                              children: [
+                                TextSpan(
+                                  text: "\n${data.email}",
+                                  style: AppText.l1!.notoSans().cl(
+                                    AppColors.grey500,
+                                  ),
+                                ),
+                              ],
+                              style: AppText.b3!.notoSans().cl(
+                                AppColors.grey900,
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Divider(),
                     GestureDetector(

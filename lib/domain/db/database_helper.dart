@@ -136,4 +136,31 @@ class DBHelper {
     );
     return result.isNotEmpty ? UserModel.fromJson(result.first) : null;
   }
+
+  /// Update an existing user profile
+  static Future<void> updateProfile({
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String phone,
+    required String address,
+    Uint8List? image,
+  }) async {
+    final db = await _database;
+    print("Saving image bytes: ${image?.lengthInBytes}");
+
+    await db.update(
+      _profileTable,
+      {
+        'first_name': firstName,
+        'last_name': lastName,
+        'phone': phone,
+        'address': address,
+        'image': image,
+      },
+      where: 'email = ?',
+      whereArgs: [email],
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
 }
