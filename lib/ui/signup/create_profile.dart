@@ -2,6 +2,8 @@ import 'package:ecommerce_app_login/configs/app_dimensions.dart';
 import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
+import 'package:ecommerce_app_login/domain/bloc/profile/profile_bloc.dart'
+    show FetchProfile, ProfileBloc;
 import 'package:ecommerce_app_login/services/auth_services.dart';
 import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
 import 'package:ecommerce_app_login/ui/signup/cubit/register_cubit.dart';
@@ -48,6 +50,8 @@ class _CreateProfileUIState extends State<CreateProfileUI> {
             context,
           ).showSnackBar(SnackBar(content: Text('Registration Successful')));
           AuthService().setLoggedIn();
+          context.read<ProfileBloc>().add(FetchProfile());
+
           AppRoutes.makeFirst(context, HomeScreen());
         } else if (state is RegisterFailure) {
           ScaffoldMessenger.of(

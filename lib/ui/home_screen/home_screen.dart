@@ -4,6 +4,7 @@ import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
 import 'package:ecommerce_app_login/data/network/api_provider.dart';
+import 'package:ecommerce_app_login/domain/bloc/profile/profile_bloc.dart';
 import 'package:ecommerce_app_login/domain/models/event_users.dart'
     show EventUsersModel;
 import 'package:ecommerce_app_login/domain/models/photo_model.dart';
@@ -12,6 +13,7 @@ import 'package:ecommerce_app_login/utils/tools.dart';
 import 'package:ecommerce_app_login/widgets/app_column.dart';
 import 'package:ecommerce_app_login/widgets/appimage.dart' show AppImage;
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +26,20 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        shape: BeveledRectangleBorder(),
+        width: AppDimensions.width(70),
+        child: BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state is ProfileLoaded) {
+              var data = state.profile;
+              return Column(children: [Text(data.firstName)]);
+            }
+            return SizedBox();
+          },
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         selectedItemColor: AppColors.grey300,

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app_login/configs/app.dart';
 import 'package:ecommerce_app_login/configs/apptheme.dart';
+import 'package:ecommerce_app_login/domain/bloc/profile/profile_bloc.dart';
 import 'package:ecommerce_app_login/domain/cubit/theme/theme_cubit.dart';
 import 'package:ecommerce_app_login/services/auth_services.dart';
 import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<ThemeCubit>(create: (context) => ThemeCubit()),
         BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
+        BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
       ],
       child: const MainApp(),
     );
@@ -63,6 +65,8 @@ class _MainAppState extends State<MainApp> {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasData) {
               if (snapshot.data) {
+                context.read<ProfileBloc>().add(FetchProfile());
+
                 return HomeScreen();
               } else {
                 return LoginScreen();

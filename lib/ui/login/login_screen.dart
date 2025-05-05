@@ -3,6 +3,7 @@ import 'package:ecommerce_app_login/configs/app_typography.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
+import 'package:ecommerce_app_login/domain/bloc/profile/profile_bloc.dart';
 import 'package:ecommerce_app_login/domain/db/database_helper.dart';
 import 'package:ecommerce_app_login/services/auth_services.dart';
 import 'package:ecommerce_app_login/ui/home_screen/home_screen.dart';
@@ -250,6 +251,8 @@ class _LoginScreenState extends State<LoginScreen> {
         if (profile != null) {
           await AuthService().setLoggedIn();
           await AuthService().setEmail(email);
+          context.read<ProfileBloc>().add(FetchProfile());
+
           AppRoutes.makeFirst(context, HomeScreen());
         } else {
           context.read<RegisterCubit>().setCredentials(
