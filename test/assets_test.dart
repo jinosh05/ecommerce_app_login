@@ -10,6 +10,7 @@ void main() {
     expect(File(Assets.eyeClosed).existsSync(), isTrue);
     expect(File(Assets.eyeOpen).existsSync(), isTrue);
     expect(File(Assets.mail).existsSync(), isTrue);
+    expect(File(Assets.messageIcon).existsSync(), isTrue);
     expect(File(Assets.passwordLock).existsSync(), isTrue);
   });
 }

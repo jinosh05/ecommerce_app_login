@@ -6,5 +6,6 @@ class Assets {
   static const String eyeClosed = 'assets/icons/eye_closed.svg';
   static const String eyeOpen = 'assets/icons/eye_open.svg';
   static const String mail = 'assets/icons/mail.svg';
+  static const String messageIcon = 'assets/icons/message_icon.svg';
   static const String passwordLock = 'assets/icons/password_lock.svg';
 }

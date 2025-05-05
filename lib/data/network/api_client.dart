@@ -80,7 +80,7 @@ class ApiClient {
             },
           );
 
-      log(response.body);
+      // log(response.body);
 
       return _returnResponse(response, uri);
     } catch (e) {
