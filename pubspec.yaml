@@ -17,8 +17,6 @@ dependencies:
   flutter_svg: ^2.1.0
   lottie: ^3.3.1
 
-
-
   # Storage
   flutter_secure_storage: ^9.2.4
   shared_preferences: ^2.5.3
@@ -43,6 +41,9 @@ dependencies:
   
   # Fonts
   google_fonts: ^6.2.1
+
+  # Utils
+  package_info_plus: ^8.3.0
 
 dev_dependencies:
   flutter_test:

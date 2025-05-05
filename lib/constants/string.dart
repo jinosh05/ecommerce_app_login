@@ -46,6 +46,8 @@ class S {
 
   static const String login = "Login";
 
+  static const String logout = "Logout";
+
   static const String signUp = "Sign Up";
 
   static const String confirmPassword = "Confirm Password";

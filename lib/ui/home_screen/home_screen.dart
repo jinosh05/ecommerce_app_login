@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:ecommerce_app_login/configs/app_dimensions.dart';
 import 'package:ecommerce_app_login/configs/app_typography.dart';
+import 'package:ecommerce_app_login/configs/app_utils.dart';
 import 'package:ecommerce_app_login/configs/space.dart';
 import 'package:ecommerce_app_login/configs/space_ext.dart';
 import 'package:ecommerce_app_login/constants/resources.dart';
@@ -9,11 +12,15 @@ import 'package:ecommerce_app_login/domain/models/event_users.dart'
     show EventUsersModel;
 import 'package:ecommerce_app_login/domain/models/photo_model.dart';
 import 'package:ecommerce_app_login/domain/models/posts_model.dart';
+import 'package:ecommerce_app_login/ui/login/login_screen.dart';
+import 'package:ecommerce_app_login/utils/routes.dart';
 import 'package:ecommerce_app_login/utils/tools.dart';
 import 'package:ecommerce_app_login/widgets/app_column.dart';
 import 'package:ecommerce_app_login/widgets/appimage.dart' show AppImage;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -34,7 +41,86 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (context, state) {
             if (state is ProfileLoaded) {
               var data = state.profile;
-              return Column(children: [Text(data.firstName)]);
+              return Padding(
+                padding: Space.all(1).t(2.5),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        data.image != null
+                            ? Image.memory(
+                              data.image!,
+                              width: AppDimensions.font(25),
+                              height: AppDimensions.font(25),
+                            )
+                            : Icon(
+                              CupertinoIcons.profile_circled,
+                              size: AppDimensions.font(25),
+                            ),
+                        Space.x1!,
+
+                        Text.rich(
+                          TextSpan(
+                            text: data.firstName,
+                            children: [
+                              TextSpan(
+                                text: "\n${data.email}",
+                                style: AppText.l1!.notoSans().cl(
+                                  AppColors.grey500,
+                                ),
+                              ),
+                            ],
+                            style: AppText.b3!.notoSans().cl(AppColors.grey900),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(),
+                    GestureDetector(
+                      onTap: () async {
+                        unawaited(AppUtils().onLogout(context));
+                        await AppRoutes.makeFirst(context, LoginScreen());
+                      },
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.logout_outlined,
+                            size: AppDimensions.font(10),
+                            color: AppColors.darkRed,
+                          ),
+
+                          Space.x1!,
+                          Text(
+                            S.logout,
+                            style:
+                                AppText.b2!
+                                    .cl(AppColors.darkRed)
+                                    .w(6)
+                                    .notoSans(),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Spacer(),
+                    Center(
+                      child: FutureBuilder(
+                        future: Future(() async {
+                          final packageInfo = await PackageInfo.fromPlatform();
+                          return packageInfo.version;
+                        }),
+                        initialData: '2.0.1',
+                        builder:
+                            (final context, final snapshot) => Text(
+                              'Version ${snapshot.data} ',
+                              style:
+                                  AppText.b3!.cl(AppColors.grey500).notoSans(),
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
             }
             return SizedBox();
           },
